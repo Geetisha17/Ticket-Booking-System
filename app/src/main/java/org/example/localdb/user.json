@@ -1,13 +1,1 @@
-[{"name":"Lovepreet Singh",
-"password":"12345",
-"hashedPassword":"$2a$10$MqonEcizso4Re9iFEMajHOIHCUd5O3Q.XZX779C50ZnC/Hb6mirwW",
-"ticketsBooked":[{"ticketId":"your_ticket_id","userId":"abcdefgh",
-"source":"Bangalore","destination":"Delhi",
-"dateOfTravel":"2023-12-08T18:30:00Z",
-"train":{"trainId":"bacs","trainNo":"12345",
-"seats":[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],
-"stationTimes":{"Bangalore":"13:50:00","Jaipur":"13:50:00",
-"Delhi":"13:50:00"},"stations":["Bangalore","Jaipur","Delhi"]}}],
-"userId":"abcdefgh"},
-{"name":"rahul","password":"hhbb11","hashedPassword":"$2a$10$O/OWE.xh3gttMANiM4BIX.mo.4/myik1J739DZ25ecVENk8xhMCW2",
-"ticketsBooked":[],"userId":"fe46da4d-c8d1-4229-97e6-600dce6941e8"}]
+[{"name":"XYZ","ticketsBooked":[{"ticketId":"your_ticket_id","userId":"abcdefgh","source":"Bangalore","destination":"Delhi","dateOfTravel":"2023-12-08T18:30:00Z","train":{"trainId":"bacs","trainNo":"12345","seats":[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],"stationTimes":{"Bangalore":"13:50:00","Jaipur":"13:50:00","Delhi":"13:50:00"},"stations":["Bangalore","Jaipur","Delhi"],"trainInfo":"Train ID: bacs Train No: 12345"},"ticketInfo":"Ticket ID: your_ticket_id belongs to User abcdefgh from Bangalore to Delhi on 2023-12-08T18:30:00Z"}],"password":"12345","userId":"abcdefgh","hashPassword":"$2a$10$MqonEcizso4Re9iFEMajHOIHCUd5O3Q.XZX779C50ZnC/Hb6mirwW"},{"name":"HUH","ticketsBooked":[],"password":"hhbb11","userId":"fe46da4d-c8d1-4229-97e6-600dce6941e8","hashPassword":"$2a$10$O/OWE.xh3gttMANiM4BIX.mo.4/myik1J739DZ25ecVENk8xhMCW2"},{"name":"heymy","ticketsBooked":[],"password":"12387","userId":"b63f7859-472c-47f4-9f9a-b696096fd8b4","hashPassword":"$2a$10$PDj/FxFIiNmZWJ..OzV49eDbjhz6TlWmeKf6B1yKNx6poA0rMn0NG"}]
