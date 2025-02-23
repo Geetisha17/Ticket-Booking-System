@@ -1,5 +1,7 @@
 package org.example.entities;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true) 
 public class Ticket{
     private String ticketId;
     private String userId;
@@ -7,6 +9,7 @@ public class Ticket{
     private String destination;
     private String dateOfTravel;
     private Train train;
+    private String ticketInfo;
 
     public Ticket(){}
 
@@ -61,6 +64,9 @@ public class Ticket{
 
     public void setDateOfTravel(String dateOfTravel){
         this.dateOfTravel = dateOfTravel;
+    }
+    public void setTicketInfo(String ticketInfo) {
+        this.ticketInfo = ticketInfo;
     }
 
     public Train getTrain(){

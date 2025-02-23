@@ -15,6 +15,7 @@ import org.example.util.UserServiceUtil;
 public class App {
     public static void main(String[] args) throws IOException {
         System.out.println("Running Train Booking System");
+
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         UserBookingService userBookingService;
@@ -22,14 +23,13 @@ public class App {
         try {
             userBookingService = new UserBookingService();
         } catch (IOException ex) {
+            System.out.println("There is something wrong with the system.");
             ex.printStackTrace();
-            System.out.println("There is something wrong");
-            scanner.close();
             return;
         }
 
         while (option != 7) {
-            System.out.println("\nChoose option:");
+            System.out.println("\nChoose an option:");
             System.out.println("1. Sign up");
             System.out.println("2. Login");
             System.out.println("3. Fetch Bookings");
@@ -39,44 +39,60 @@ public class App {
             System.out.println("7. Exit the App");
             System.out.print("Enter your choice: ");
 
-            String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("No input detected. Please try again.");
-                continue;
-            }
-            try {
-                option = Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number between 1 and 7.");
-                continue;
-            }
+            // if (!scanner.hasNext()) {
+            //     System.out.println("No input available. Exiting...");
+            //     break;
+            // }
 
+            // String input = scanner.nextLine().trim();
+
+            // if (input.isEmpty()) {
+            //     System.out.println("No input detected. Please try again.");
+            //     continue;
+            // }
+
+            // try {
+            //     option = Integer.parseInt(input);
+            // } catch (NumberFormatException e) {
+            //     System.out.println("Invalid input. Please enter a number between 1 and 7.");
+            //     continue;
+            // }
+            option = scanner.nextInt();
 
             Train trainSelectedForBooking = new Train();
+
             switch (option) {
                 case 1:
-                    System.out.print("Enter the username to sign up: ");
+                    System.out.print("Enter username to sign up: ");
+                    if (!scanner.hasNextLine()) break;
                     String nameToSignUp = scanner.nextLine().trim();
-                    System.out.print("Enter the password to sign up: ");
+
+                    System.out.print("Enter password to sign up: ");
+                    if (!scanner.hasNextLine()) break;
                     String passwordToSignUp = scanner.nextLine().trim();
 
-                    User userToSignup = new User(nameToSignUp, passwordToSignUp, 
-                        UserServiceUtil.hashPassword(passwordToSignUp), 
-                        new ArrayList<>(), UUID.randomUUID().toString());
+                    User userToSignup = new User(
+                            nameToSignUp, passwordToSignUp,
+                            UserServiceUtil.hashPassword(passwordToSignUp),
+                            new ArrayList<>(), UUID.randomUUID().toString());
 
                     userBookingService.signUp(userToSignup);
                     System.out.println("Sign-up successful!");
                     break;
 
                 case 2:
-                    System.out.print("Enter the username to login: ");
+                    System.out.print("Enter username to login: ");
+                    if (!scanner.hasNextLine()) break;
                     String nameToLogin = scanner.nextLine().trim();
-                    System.out.print("Enter the password: ");
+
+                    System.out.print("Enter password: ");
+                    if (!scanner.hasNextLine()) break;
                     String passwordToLogin = scanner.nextLine().trim();
 
-                    User userToLogin = new User(nameToLogin, passwordToLogin, 
-                        UserServiceUtil.hashPassword(passwordToLogin), 
-                        new ArrayList<>(), UUID.randomUUID().toString());
+                    User userToLogin = new User(
+                            nameToLogin, passwordToLogin,
+                            UserServiceUtil.hashPassword(passwordToLogin),
+                            new ArrayList<>(), UUID.randomUUID().toString());
 
                     try {
                         userBookingService = new UserBookingService(userToLogin);
@@ -92,9 +108,12 @@ public class App {
                     break;
 
                 case 4:
-                    System.out.print("Enter your source station: ");
+                    System.out.print("Enter source station: ");
+                    if (!scanner.hasNextLine()) break;
                     String source = scanner.nextLine().trim();
-                    System.out.print("Enter your destination station: ");
+
+                    System.out.print("Enter destination station: ");
+                    if (!scanner.hasNextLine()) break;
                     String dest = scanner.nextLine().trim();
 
                     List<Train> trains = userBookingService.getTrains(source, dest);
@@ -114,9 +133,10 @@ public class App {
                     }
 
                     System.out.print("Select a train (Enter number): ");
-                    int trainIndex;
+                    if (!scanner.hasNextLine()) break;
+
                     try {
-                        trainIndex = Integer.parseInt(scanner.nextLine().trim()) - 1;
+                        int trainIndex = Integer.parseInt(scanner.nextLine().trim()) - 1;
                         if (trainIndex < 0 || trainIndex >= trains.size()) {
                             System.out.println("Invalid train selection.");
                             break;
@@ -124,7 +144,6 @@ public class App {
                         trainSelectedForBooking = trains.get(trainIndex);
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid input. Please enter a valid train number.");
-                        break;
                     }
                     break;
 
@@ -140,28 +159,31 @@ public class App {
                     }
 
                     System.out.print("Enter the row number: ");
-                    int row, col;
+                    if (!scanner.hasNextLine()) break;
+
+                    System.out.print("Enter the column number: ");
+                    if (!scanner.hasNextLine()) break;
+
                     try {
-                        row = Integer.parseInt(scanner.nextLine().trim());
-                        System.out.print("Enter the column number: ");
-                        col = Integer.parseInt(scanner.nextLine().trim());
+                        int row = Integer.parseInt(scanner.nextLine().trim());
+                        int col = Integer.parseInt(scanner.nextLine().trim());
+
+                        System.out.println("Booking your seat...");
+                        boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
+
+                        if (booked) {
+                            System.out.println("Seat booked! Enjoy your journey.");
+                        } else {
+                            System.out.println("Seat booking failed.");
+                        }
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid input. Please enter valid seat numbers.");
-                        break;
-                    }
-
-                    System.out.println("Booking your seat...");
-                    boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
-
-                    if (booked) {
-                        System.out.println("Seat booked! Enjoy your journey.");
-                    } else {
-                        System.out.println("Seat booking failed.");
                     }
                     break;
 
                 case 6:
                     System.out.print("Enter your ticket ID to cancel: ");
+                    if (!scanner.hasNextLine()) break;
                     String ticketId = scanner.nextLine().trim();
 
                     if (ticketId.isEmpty()) {
@@ -187,6 +209,6 @@ public class App {
             }
         }
 
-        scanner.close(); // Close scanner at the end
+        scanner.close();
     }
 }

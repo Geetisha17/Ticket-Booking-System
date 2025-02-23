@@ -2,13 +2,17 @@ package org.example.entities;
 
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Train{
     private String trainId;
     private String trainNo;
     private List<List<Integer>> seats;
     private Map<String, String> stationTimes;
     private List<String> stations;
+    private String trainInfo;
+    
     public Train(){}
 
     public Train(String trainId, String trainNo, List<List<Integer>> seats, Map<String, String> stationTimes, List<String> stations){
@@ -38,6 +42,10 @@ public class Train{
     }
     public void setTrainNo(String trainNo){
         this.trainNo = trainNo;
+    }
+
+    public void setTrainInfo(String trainInfo) {
+        this.trainInfo = trainInfo;
     }
     public void setTrainId(String trainId){
         this.trainId = trainId;
